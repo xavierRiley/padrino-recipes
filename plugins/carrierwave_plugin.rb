@@ -108,7 +108,7 @@ class Uploader < CarrierWave::Uploader::Base
   # and we cannot access uploader instance fields from this block
   version :admin_thumb do
     # this isn't right 
-    #process_extensions Uploader::IMAGE_EXTENSIONS, :resize_to_fit => [80,80], store_dir = "public/uploads/images/#{model.id}" 
+    #process_extensions Uploader::IMAGE_EXTENSIONS, :resize_to_fit => [80,80], store_dir = "public/uploads/images/\#{model.id}" 
     process_extensions Uploader::IMAGE_EXTENSIONS, :resize_to_fit => [80,80] 
   end
 

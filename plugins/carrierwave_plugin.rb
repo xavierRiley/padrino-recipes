@@ -136,11 +136,11 @@ empty_directory destination_root('public/uploads/images')
 empty_directory destination_root('public/uploads/documents')
 empty_directory destination_root('public/uploads/audio')
 empty_directory destination_root('public/uploads/video')
-chmod destination_root('public/uploads/original_files'), 777
-chmod destination_root('public/uploads/images'), 777
-chmod destination_root('public/uploads/documents'), 777
-chmod destination_root('public/uploads/audio'), 777
-chmod destination_root('public/uploads/video'), 777
+chmod destination_root('public/uploads/original_files'), 0777
+chmod destination_root('public/uploads/images'), 0777
+chmod destination_root('public/uploads/documents'), 0777
+chmod destination_root('public/uploads/audio'), 0777
+chmod destination_root('public/uploads/video'), 0777
 create_file destination_root('lib/uploader.rb'), UPLOADER
 generate :model, "upload file:text created_at:datetime"
 prepend_file destination_root('models/upload.rb'), "require 'carrierwave/orm/#{fetch_component_choice(:orm)}'\n"

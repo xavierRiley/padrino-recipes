@@ -107,7 +107,7 @@ class Uploader < CarrierWave::Uploader::Base
   # therefore this code does not run in the context of an object instance
   # and we cannot access uploader instance fields from this block
   version :admin_thumb do
-    process_extensions Uploader::IMAGE_EXTENSIONS, :resize_to_fit => [80,80], store_dir = "public/uploads/images/#{model.id}" 
+    process_extensions Uploader::IMAGE_EXTENSIONS, :resize_to_fit => [80,80], store_dir = "public/uploads/images/\#{model.id}" 
   end
 
   #version :logo do
@@ -134,7 +134,11 @@ empty_directory destination_root('public/uploads/images')
 empty_directory destination_root('public/uploads/documents')
 empty_directory destination_root('public/uploads/audio')
 empty_directory destination_root('public/uploads/video')
-chmod destination_root('public/uploads/*'), 777
+chmod destination_root('public/uploads/original_files'), 777
+chmod destination_root('public/uploads/images'), 777
+chmod destination_root('public/uploads/documents'), 777
+chmod destination_root('public/uploads/audio'), 777
+chmod destination_root('public/uploads/video'), 777
 create_file destination_root('lib/uploader.rb'), UPLOADER
 generate :model, "upload file:text created_at:datetime"
 prepend_file destination_root('models/upload.rb'), "require 'carrierwave/orm/#{fetch_component_choice(:orm)}'\n"

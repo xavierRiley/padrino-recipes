@@ -42,7 +42,7 @@ class Uploader < CarrierWave::Uploader::Base
   # Some trickery needed here - dump all uploads in here and keep versions are kept in their respective folders
   #
   def store_dir
-    'public/uploads/original_files'
+    'uploads/original_files'
   end
 
   ##

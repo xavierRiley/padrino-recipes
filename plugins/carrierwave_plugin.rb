@@ -39,10 +39,11 @@ class Uploader < CarrierWave::Uploader::Base
 
   ##
   # Directory where uploaded files will be stored (default is /public/uploads)
+  # Some trickery needed here - dump all uploads in here and keep versions are kept in their respective folders
   #
-  #def store_dir
-  #  'images/uploads'
-  #end
+  def store_dir
+    'public/uploads/original_files'
+  end
 
   ##
   # Directory where uploaded temp files will be stored (default is [root]/tmp)
@@ -106,7 +107,7 @@ class Uploader < CarrierWave::Uploader::Base
   # therefore this code does not run in the context of an object instance
   # and we cannot access uploader instance fields from this block
   version :admin_thumb do
-    process_extensions Uploader::IMAGE_EXTENSIONS, :resize_to_fit => [80,80]
+    process_extensions Uploader::IMAGE_EXTENSIONS, :resize_to_fit => [80,80], store_dir = "public/uploads/images/#{model.id}" 
   end
 
   #version :logo do
@@ -128,6 +129,7 @@ UPLOADER
 inject_into_file destination_root('Gemfile'),"gem 'mini_magick'\n", :after => "# Component requirements\n"
 inject_into_file destination_root('Gemfile'),"gem 'carrierwave'\n", :after => "# Component requirements\n"
 empty_directory destination_root('public/uploads')
+empty_directory destination_root('public/uploads/original_files')
 empty_directory destination_root('public/uploads/images')
 empty_directory destination_root('public/uploads/documents')
 empty_directory destination_root('public/uploads/audio')

@@ -142,11 +142,11 @@ chmod destination_root('public/uploads/documents'), 0777
 chmod destination_root('public/uploads/audio'), 0777
 chmod destination_root('public/uploads/video'), 0777
 create_file destination_root('lib/uploader.rb'), UPLOADER
-generate :model, "upload file:text created_at:datetime"
-prepend_file destination_root('models/upload.rb'), "require 'carrierwave/orm/#{fetch_component_choice(:orm)}'\n"
+#generate :model, "upload file:text created_at:datetime"
+#prepend_file destination_root('models/upload.rb'), "require 'carrierwave/orm/#{fetch_component_choice(:orm)}'\n"
 case fetch_component_choice(:orm)
 when 'datamapper'
   inject_into_file destination_root('models/upload.rb'),", :auto_validation => false\n", :after => "property :file, Text"
 end
-inject_into_file destination_root('models/upload.rb'),"   mount_uploader :file, Uploader\n", :before => 'end'
+#inject_into_file destination_root('models/upload.rb'),"   mount_uploader :file, Uploader\n", :before => 'end'
 require_dependencies 'carrierwave'
